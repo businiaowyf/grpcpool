@@ -8,24 +8,24 @@ go get github.com/businiaowyf/grpcpool
 package main
 
 import (
-	"log"
+    "log"
 
-	"github.com/businiaowyf/grpcpool"
-	"google.golang.org/grpc"
+    "github.com/businiaowyf/grpcpool"
+    "google.golang.org/grpc"
 )
 
 func main() {
-	p, err := grpcpool.NewPool(
-		func() (*grpc.ClientConn, error) {
-			return grpc.Dial("localhost:50051", grpc.WithInsecure())
-		}, 0, 3, 0, 0)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+    p, err := grpcpool.NewPool(
+        func() (*grpc.ClientConn, error) {
+            return grpc.Dial("localhost:50051", grpc.WithInsecure())
+        }, 0, 3, 0, 0)
+    if err != nil {
+        log.Println(err)
+        return
+    }
 
-	conn, err := p.Get()
-	defer p.Put(conn, false)
+    conn, err := p.Get()
+    defer p.Put(conn, false)
 }
 ```
 
