@@ -36,6 +36,7 @@ p, err := grpcpool.NewPool(
     resolver.Register(r)
     func() (*grpc.ClientConn, error) {
     return grpc.Dial(r.Scheme()+"://authority/"+serviceName, grpc.WithBalancerName("round_robin"), grpc.WithInsecure())
-    }, 0, 3, 0, 0)
+    }, 0, 3, 0, 0
+)
 ```
 Of course, you need to implement your own resolver.Builder.
