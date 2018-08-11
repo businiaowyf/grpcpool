@@ -34,12 +34,12 @@ func main() {
 
 If you use etcdv3 as a naming service, you can also use it like this:
 ```
+b := etcdv3.NewBuilder("localhost:2379;localhost:22379;localhost:32379")
+resolver.Register(b)
 p, err := grpcpool.NewPool(
-    r := etcdv3.NewResolver("localhost:2379;localhost:22379;localhost:32379")
-    resolver.Register(r)
     func() (*grpc.ClientConn, error) {
     return grpc.Dial(r.Scheme()+"://authority/"+serviceName, grpc.WithBalancerName("round_robin"), grpc.WithInsecure())
     }, 0, 3, 0, 0
 )
 ```
-Of course, you need to implement your own resolver.Builder.
+Of course, you need to implement your own resolver.Builder. I've implemented a resolver.Builder, you can find it here: https://github.com/businiaowyf/wonaming
