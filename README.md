@@ -38,7 +38,7 @@ b := etcdv3.NewBuilder("localhost:2379;localhost:22379;localhost:32379")
 resolver.Register(b)
 p, err := grpcpool.NewPool(
     func() (*grpc.ClientConn, error) {
-    return grpc.Dial(r.Scheme()+"://authority/"+serviceName, grpc.WithBalancerName("round_robin"), grpc.WithInsecure())
+    return grpc.Dial(b.Scheme()+"://authority/"+serviceName, grpc.WithBalancerName("round_robin"), grpc.WithInsecure())
     }, 0, 3, 0, 0
 )
 ```
